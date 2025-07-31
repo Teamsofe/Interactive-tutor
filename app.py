@@ -184,7 +184,7 @@ def linear_search():
         numbers = [int(num.strip()) for num in numbers]
         target = int(request.form['target'])
 
-        # Linear Search Simulation
+        # Linear Sarch Simulation
         steps = []
         for i, num in enumerate(numbers):
             steps.append(f"Checking index {i}: {num}")
