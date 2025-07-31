@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - AlgoTutor{% endblock %}
+
+{% block content %}
+    <h1 style="color: #4CAF50; text-align: center; margin-bottom: 20px;">
+        Welcome, {{ student.name }}!
+    </h1>
+
+    <div style="background-color: #fff; box-shadow: 0 6px 12px rgba(0,0,0,0.1); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+        <h2 style="color: #3498db;">Your Profile Information</h2>
+        <p><strong>Registration Number:</strong> {{ student.reg_no }}</p>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+    </div>
+
+    <div style="background-color: #fff; box-shadow: 0 6px 12px rgba(0,0,0,0.1); border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+        <h2 style="color: #ff5733;">Available Topics</h2>
+        <p>Explore the topics below to learn more about algorithms:</p>
+        <ul>
+            {% for topic in topics %}
+                <li>{{ topic.title }}</li>
+            {% endfor %}
+        </ul>
+        <button onclick="window.location.href='/topics'" style="background-color: #4CAF50; color: white; padding: 12px 20px; border: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s;">
+            View Topics
+        </button>
+    </div>
+
+   <blockquote class="blockquote">
+        <p><i>“Learning algorithms is not about remembering steps, it's about understanding logic.”</i></p>
+        <footer class="blockquote-footer">Faith Udechukwu</footer>
+    </blockquote>
+
+{% endblock %}

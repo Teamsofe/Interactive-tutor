@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Bubble Sort Quiz{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🧠 Test Your Knowledge: Bubble Sort Quiz</h2>
+
+    <form method="POST" action="{{ url_for('bubble_sort_quiz') }}#quiz-result" class="p-4 bg-light rounded shadow-sm">
+        <div class="mb-4">
+            <h5>1. What does Bubble Sort do?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q1" value="a" required>
+                <label class="form-check-label">Sorts the numbers randomly</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q1" value="b">
+                <label class="form-check-label">Sorts numbers by repeatedly comparing adjacent elements</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>2. How many times does Bubble Sort repeat?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q2" value="a" required>
+                <label class="form-check-label">n-1 times</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q2" value="b">
+                <label class="form-check-label">n times</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>3. What happens when adjacent elements are in the wrong order?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q3" value="a" required>
+                <label class="form-check-label">They are swapped</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q3" value="b">
+                <label class="form-check-label">They are deleted</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>4. Which element reaches its correct position first?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q4" value="a" required>
+                <label class="form-check-label">Smallest element</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q4" value="b">
+                <label class="form-check-label">Largest element</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>5. What is the time complexity of Bubble Sort?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q5" value="a" required>
+                <label class="form-check-label">O(n)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q5" value="b">
+                <label class="form-check-label">O(n²)</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Quiz</button>
+    </form>
+
+    {% if score is not none %}
+    <div id="quiz-result" class="mt-5 p-4 bg-white rounded shadow-sm text-center animate-highlight">
+        <h3>Your Score: {{ score }} out of 5</h3>
+        {% if score == 5 %}
+            <p class="text-success">🌟 Excellent! You're a Bubble Sort master!</p>
+        {% elif score >= 3 %}
+            <p class="text-info">👍 Good job! A bit more practice and you'll master it.</p>
+        {% else %}
+            <p class="text-warning">📘 Keep trying! Review the lesson and try again.</p>
+        {% endif %}
+
+        <!-- Back to lesson button only shows after quiz -->
+        <a href="{{ url_for('bubble_sort') }}" class="btn btn-outline-secondary mt-3">
+            🔙 Back to Bubble Sort Lesson
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .animate-highlight {
+        animation: fadeInHighlight 1s ease-in-out;
+    }
+
+    @keyframes fadeInHighlight {
+        from {
+            background-color: #fff3cd;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            background-color: #ffffff;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+{% if score is not none %}
+<script>
+    window.onload = function () {
+        const result = document.getElementById("quiz-result");
+        if (result) {
+            result.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }
+</script>
+{% endif %}
+{% endblock %}

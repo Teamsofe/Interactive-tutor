@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}Recursion - Factorial{% endblock %}
+
+{% block content %}
+
+<div class="text-center">
+    <small class="text-muted">Scroll down ↓</small>
+</div>
+
+<div class="hero-image mt-0 pt-2">
+    <img src="{{ url_for('static', filename='images/Recursion.png') }}"
+         alt="Recursion Concept"
+         class="img-fluid rounded shadow"
+         style="width: 100%; height: auto; display: block; margin: 0 auto;">
+</div>
+
+
+<div class="container mt-0 pt-2">
+    <h2 class="text-center mb-4">🔁 Understanding Recursion through Factorial</h2>
+
+    <div class="row">
+        <!-- LEFT COLUMN -->
+        <div class="col-md-6">
+            <p>
+                Recursion is a powerful concept in programming where a function calls itself to solve smaller parts of a bigger problem.
+            </p>
+            <p>
+                Let's understand this using a simple mathematical example: calculating the factorial of a number (n!).
+                For instance, 5! = 5 × 4 × 3 × 2 × 1
+            </p>
+
+            <h4 class="mt-4">📝 Pseudocode</h4>
+            <pre class="bg-light p-3 rounded">
+function factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    else:
+        return n * factorial(n - 1)
+            </pre>
+
+            <h5 class="mt-4">🧠 Line-by-Line Explanation:</h5>
+            <ul>
+                <li>We define a function that takes an integer <code>n</code>.</li>
+                <li>If <code>n</code> is 0 or 1, we return 1 (this is our base case).</li>
+                <li>Otherwise, we return <code>n * factorial(n - 1)</code>, which keeps calling itself with smaller values.</li>
+                <li>This continues until it reaches the base case.</li>
+            </ul>
+
+            <h5 class="mt-4">📌 More Insights</h5>
+            <ul>
+                <li><strong>Why Recursion?</strong> It simplifies problems that can be broken into similar sub-problems.</li>
+                <li><strong>Efficiency:</strong> Can be less efficient without optimizations (like memoization).</li>
+                <li><strong>Best Use:</strong> Tree traversals, combinatorics, divide-and-conquer problems.</li>
+            </ul>
+
+            <a href="https://www.geeksforgeeks.org/recursion/" class="d-block mb-3">See More Explanation on Recursion</a>
+
+            <h5 class="mt-4">🧠 Click the links below to Visualize the Concept:</h5>
+            <a href="https://visualgo.net/en/recursion" class="d-block mb-3">Interactive Visualization 1</a>
+            <a href="https://www.cs.usfca.edu/~galles/visualization/RecFact.html" class="d-block mb-3">Interactive Visualization 2</a>
+
+            <div class="alert alert-info mt-3">
+                💡 <strong>Good To Know:</strong> Always include a base case in recursive functions to avoid infinite loops.
+            </div>
+
+            <a href="{{ url_for('recursion_quiz') }}" class="btn btn-info mt-3">🧠 Take Quiz on Recursion</a>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-md-6">
+            <!-- Audio -->
+            <h4 class="mt-4">🎧 Audio Explanation</h4>
+            <audio id="recursionAudio" controls class="mb-2">
+                <source src="{{ url_for('static', filename='audio/audio_5.mp3') }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <button onclick="toggleAudio()" class="btn btn-primary mb-4">Play/Pause Audio Explanation</button>
+
+            <script>
+                function toggleAudio() {
+                    const audio = document.getElementById('recursionAudio');
+                    audio.paused ? audio.play() : audio.pause();
+                }
+            </script>
+
+            <!-- Videos -->
+            <h5>🎥 Watch: Recursion Explained</h5>
+            <div class="d-flex gap-2 mb-4">
+                <video width="48%" height="240" controls>
+                    <source src="{{ url_for('static', filename='videos/Recursion 1.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video width="48%" height="240" controls>
+                    <source src="{{ url_for('static', filename='videos/Recursion 2.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Simulation -->
+            <h5 class="mt-4">🧪 Try Factorial Simulation</h5>
+            <form method="post" action="{{ url_for('recursion') }}" class="mb-3">
+                <label for="number">Enter a number (e.g., 5):</label>
+                <input type="number" name="number" id="number" class="form-control mb-2" required>
+                <button class="btn btn-success" type="submit">Calculate Factorial</button>
+            </form>
+
+            {% if simulation_result %}
+            <div class="mt-4">
+                <h5>📈 Recursive Steps</h5>
+                <ul>
+                    {% for step in simulation_result %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Game -->
+            <h4 class="mt-5">🎮 Build the Factorial Stack</h4>
+            <p>Drag the numbers in correct recursive order (e.g., 5 → 4 → 3 → 2 → 1)</p>
+
+            <div id="game-container" class="d-flex justify-content-center flex-wrap gap-2 mb-3">
+                <div class="game-item" draggable="true" id="item1">3</div>
+                <div class="game-item" draggable="true" id="item2">5</div>
+                <div class="game-item" draggable="true" id="item3">1</div>
+                <div class="game-item" draggable="true" id="item4">2</div>
+                <div class="game-item" draggable="true" id="item5">4</div>
+            </div>
+
+            <button class="btn btn-success" onclick="checkRecursionGame()">Check Order</button>
+            <p id="gameFeedback" class="mt-3 fw-bold"></p>
+
+            <script>
+                let items = document.querySelectorAll('.game-item');
+                let draggedItem = null;
+
+                items.forEach(item => {
+                    item.addEventListener('dragstart', e => {
+                        draggedItem = e.target;
+                        e.dataTransfer.setData('text', draggedItem.id);
+                    });
+
+                    item.addEventListener('dragover', e => e.preventDefault());
+
+                    item.addEventListener('drop', e => {
+                        e.preventDefault();
+                        if (draggedItem !== e.target) {
+                            [draggedItem.textContent, e.target.textContent] = [e.target.textContent, draggedItem.textContent];
+                        }
+                    });
+                });
+
+                function checkRecursionGame() {
+                    const current = Array.from(document.querySelectorAll('.game-item')).map(el => el.textContent.trim());
+                    const correct = ["5", "4", "3", "2", "1"];
+                    const success = JSON.stringify(current) === JSON.stringify(correct);
+
+                    document.getElementById('gameFeedback').textContent =
+                        success ? "🎉 Great! You stacked the recursion calls correctly." : "❌ Incorrect order! Try again.";
+                }
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- 👇 Styling for the full-width image and game items -->
+<style>
+    .hero-image {
+        width: 100%;
+        overflow: hidden;
+        margin-top: -8px;
+        text-align: center;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+        height: auto;
+        display: inline-block;
+    }
+
+    @media (min-width: 768px) {
+        .hero-image img {
+            max-height: 400px;
+        }
+    }
+
+    .game-item {
+        width: 50px;
+        height: 50px;
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #6c757d;
+        border-radius: 8px;
+        cursor: grab;
+    }
+
+    .game-item:hover {
+        background-color: #e2e6ea;
+    }
+
+    .game-item:active {
+        cursor: grabbing;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoTutor - Learn Algorithms</title>
+
+    <!-- Embedded CSS for Styling -->
+    <style>
+    /* Full Page Background Image */
+    .full-height {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url('static/images/student.png');
+        background-size: contain; /* Make sure the full image fits */
+        background-position:  center; /* Center the image */
+        background-repeat: no-repeat; /* Prevent image repetition */
+    }
+
+    /* Text overlay styling */
+    .text-overlay {
+        color: #fff;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better text visibility */
+        padding: 30px 50px;
+        border-radius: 10px;
+        text-align: center;
+        width: 80%;
+        max-width: 600px;
+    }
+
+    /* Heading and Paragraph Styling */
+    h1 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 1.2rem;
+        margin-top: 20px;
+    }
+
+    .sub-text {
+        font-size: 1.1rem;
+        font-style: italic;
+        margin-top: 10px;
+        font-weight: lighter;
+    }
+
+    /* Button Styling */
+    .btn-primary {
+        background-color: #28a745; /* Green color */
+        border: none;
+        padding: 12px 20px;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 5px;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #218838;
+        cursor: pointer;
+    }
+
+    /* Additional Margin */
+    .mt-4 {
+        margin-top: 20px;
+    }
+
+    .mt-3 {
+        margin-top: 10px;
+    }
+</style>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row full-height">
+            <!-- Text Overlay with Content -->
+            <div class="text-overlay">
+                <h1>Welcome to AlgoTutor</h1>
+                <p>Your interactive platform to learn algorithms, designed specifically for Education students.</p>
+                <p class="sub-text">Whether you are a beginner or have struggled with algorithms in the past, we are here to make it easier for you to understand and master algorithms at your own pace.</p>
+
+                <!-- Login Button -->
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg mt-4">Log In</a>
+
+                <!-- Optional: Add a message to explain that students will need their reg number -->
+                <p class="mt-3">Already a student? Log in using your reg number to get started!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

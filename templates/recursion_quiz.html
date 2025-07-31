@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Recursion Quiz{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🧠 Test Your Knowledge: Recursion Quiz</h2>
+
+    <form method="POST" action="{{ url_for('recursion_quiz') }}#quiz-result" class="p-4 bg-light rounded shadow-sm">
+        <div class="mb-4">
+            <h5>1. What is recursion in programming?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" value="a" required>
+                <label class="form-check-label">Repeating a loop until a condition is met</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" value="b">
+                <label class="form-check-label">A function calling itself</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" value="c">
+                <label class="form-check-label">Calling multiple functions at once</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>2. What is a base case in recursion?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question2" value="a" required>
+                <label class="form-check-label">The last line in a recursive function</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question2" value="b">
+                <label class="form-check-label">A condition where the recursion ends</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question2" value="c">
+                <label class="form-check-label">The maximum depth of recursion</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>3. What can happen if a base case is missing in a recursive function?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question3" value="a" required>
+                <label class="form-check-label">The function will execute only once</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question3" value="b">
+                <label class="form-check-label">It will run in an infinite loop or cause a stack overflow</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>4. Which of these problems is commonly solved using recursion?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question4" value="a" required>
+                <label class="form-check-label">Calculating factorial of a number</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question4" value="b">
+                <label class="form-check-label">Printing a string</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>5. What is the purpose of the recursive step?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question5" value="a" required>
+                <label class="form-check-label">To divide the problem and move towards the base case</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question5" value="b">
+                <label class="form-check-label">To print the output</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Quiz</button>
+    </form>
+
+    {% if score is not none %}
+    <div id="quiz-result" class="mt-5 p-4 bg-white rounded shadow-sm text-center animate-highlight">
+        <h3>Your Score: {{ score }} out of 5</h3>
+        {% if score == 5 %}
+            <p class="text-success">🌟 Excellent! You're a Recursion master!</p>
+        {% elif score >= 3 %}
+            <p class="text-info">👍 Nice work! You're getting the hang of it.</p>
+        {% else %}
+            <p class="text-warning">📘 Keep learning! Try reviewing the topic again.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <a href="{{ url_for('recursion') }}" class="btn btn-outline-secondary mt-3">
+        🔙 Back to Recursion Lesson
+    </a>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .animate-highlight {
+        animation: fadeInHighlight 1s ease-in-out;
+    }
+
+    @keyframes fadeInHighlight {
+        from {
+            background-color: #fff3cd;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            background-color: #ffffff;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}

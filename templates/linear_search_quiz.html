@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Linear Search Quiz{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🧩 Linear Search Quiz</h2>
+
+    <form method="post" id="quiz-form">
+        <div class="mb-3">
+            <label class="form-label">1. What is the time complexity of Linear Search?</label>
+            <div>
+                <input type="radio" id="q1a" name="question1" value="a" required>
+                <label for="q1a">O(n)</label>
+            </div>
+            <div>
+                <input type="radio" id="q1b" name="question1" value="b">
+                <label for="q1b">O(n²)</label>
+            </div>
+            <div>
+                <input type="radio" id="q1c" name="question1" value="c">
+                <label for="q1c">O(log n)</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">2. What is the main advantage of Linear Search?</label>
+            <div>
+                <input type="radio" id="q2a" name="question2" value="a" required>
+                <label for="q2a">It works on sorted data only</label>
+            </div>
+            <div>
+                <input type="radio" id="q2b" name="question2" value="b">
+                <label for="q2b">It’s the most efficient search algorithm</label>
+            </div>
+            <div>
+                <input type="radio" id="q2c" name="question2" value="c">
+                <label for="q2c">It works on unsorted or small data</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">3. What happens if the target is not found in Linear Search?</label>
+            <div>
+                <input type="radio" id="q3a" name="question3" value="a" required>
+                <label for="q3a">Returns the index of the last element</label>
+            </div>
+            <div>
+                <input type="radio" id="q3b" name="question3" value="b">
+                <label for="q3b">Returns "Not Found"</label>
+            </div>
+            <div>
+                <input type="radio" id="q3c" name="question3" value="c">
+                <label for="q3c">Throws an error</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-info">Submit</button>
+    </form>
+
+     {% if score is not none %}
+    <div id="quiz-result" class="mt-5 p-4 bg-white rounded shadow-sm text-center animate-highlight">
+        <h3>Your Score: {{ score }} out of 3</h3>
+        {% if score == 3 %}
+            <p class="text-success">🌟 Excellent! You're an Insertion Sort master!</p>
+        {% elif score >= 1 %}
+            <p class="text-info">👍 Good job! A bit more practice and you'll master it.</p>
+        {% else %}
+            <p class="text-warning">📘 Keep trying! Review the lesson and try again.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <a href="{{ url_for('linear_search') }}" class="btn btn-outline-secondary mt-3">
+        🔙 Back to Linear Search Lesson
+    </a>
+</div>
+
+{% if score is not none %}
+<script>
+    window.onload = function() {
+        const resultElement = document.getElementById("quiz-result");
+        if (resultElement) {
+            resultElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
+</script>
+{% endif %}
+
+{% endblock %}

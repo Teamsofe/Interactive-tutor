@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% block title %}Linear Search{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <small class="text-muted">Scroll down ↓</small>
+</div>
+
+<div class="hero-image mt-0 pt-2">
+    <img src="{{ url_for('static', filename='images/Linear Search.jpg') }}"
+         alt="Linear Search Concept"
+         class="img-fluid rounded shadow"
+         style="width: 100%; height: auto; display: block; margin: 0 auto;">
+</div>
+
+<div class="container mt-0 pt-2">
+    <h2 class="text-center mb-4">🧩 Understanding Linear Search (The Friendly Way)</h2>
+
+    <div class="row">
+        <!-- LEFT COLUMN -->
+        <div class="col-md-6">
+            <p>
+                Imagine looking for your favorite book on a shelf, one by one. You check each book until you find it. This is exactly how Linear Search works!
+            </p>
+            <p>
+                It checks each element in a list until the target is found or all elements have been searched.
+            </p>
+
+            <h4 class="mt-4">📝 Pseudocode</h4>
+            <pre class="bg-light p-3 rounded">
+For i from 0 to n-1:
+    If A[i] == target:
+        Return i
+Return "Not Found"
+            </pre>
+
+            <h5 class="mt-4">🧠 Line-by-Line Explanation:</h5>
+            <ul>
+                <li>We start from the beginning of the list.</li>
+                <li>Check each item to see if it matches the target.</li>
+                <li>If a match is found, return the index.</li>
+                <li>If no match is found after checking all items, return "Not Found".</li>
+            </ul>
+
+            <h5 class="mt-4">📌 More Insights</h5>
+            <ul>
+                <li><strong>Why "Linear"?</strong> It goes through the list in a linear fashion, one element at a time.</li>
+                <li><strong>Efficiency:</strong> Time complexity is O(n), as it checks every element.</li>
+                <li><strong>Best Use:</strong> Small lists or unsorted data.</li>
+            </ul>
+
+            <a href="https://www.geeksforgeeks.org/linear-search/" class="d-block mb-3">See More Explanation on Linear Search</a>
+
+            <h5 class="mt-4">🧠 Click the links below to Visualize the Concept:</h5>
+            <a href="https://cs50.harvard.edu/x/2023/shorts/linear_search/" class="d-block mb-3">Interactive Visualization 1</a>
+            <a href="https://www.cs.usfca.edu/~galles/visualization/Search.html" class="d-block mb-3">Interactive Visualization 2</a>
+
+            <div class="alert alert-info mt-3">
+                💡 <strong>Best For:</strong> When you need to search through small or unsorted data.
+            </div>
+
+            <a href="{{ url_for('linear_search_quiz') }}" class="btn btn-info mt-3">🧠 Take Quiz on Linear Search</a>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-md-6">
+            <!-- Audio -->
+            <h4 class="mt-4">🎧 Audio Explanation</h4>
+            <audio id="linearSearchAudio" controls class="mb-2">
+                <source src="{{ url_for('static', filename='audio/audio_3.mp3') }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <button onclick="toggleAudio()" class="btn btn-primary mb-4">Play/Pause Audio Explanation</button>
+
+            <script>
+                function toggleAudio() {
+                    const audio = document.getElementById('linearSearchAudio');
+                    audio.paused ? audio.play() : audio.pause();
+                }
+            </script>
+
+            <!-- Videos -->
+            <h5>🎥 Watch: Linear Search Explained</h5>
+            <div class="d-flex gap-2 mb-4">
+                <video width="48%" height="240" controls>
+                    <source src="{{ url_for('static', filename='videos/Linear_Search 1.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video width="48%" height="240" controls>
+                    <source src="{{ url_for('static', filename='videos/Linear_Search 2.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Simulation -->
+            <h5 class="mt-4">🧪 Try Linear Search Simulation</h5>
+            <form method="post" action="{{ url_for('linear_search') }}" class="mb-3">
+                <label for="numbers">Enter numbers (e.g., 9, 5, 1, 4):</label>
+                <input type="text" name="numbers" id="numbers" class="form-control mb-2" required>
+                <label for="target">Enter target to find:</label>
+                <input type="number" name="target" id="target" class="form-control mb-2" required>
+                <button class="btn btn-success" type="submit">Start Simulation</button>
+            </form>
+
+            {% if simulation_result %}
+            <div class="mt-4">
+                <h5>🔍 Simulation Steps</h5>
+                <ul>
+                    {% for step in simulation_result %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Game -->
+            <h4 class="mt-5">🎮 Search the Target in the List</h4>
+            <p>Drag the target number into the correct spot if it's in the list!</p>
+
+            <div class="d-flex align-items-center mb-3">
+                <div id="draggableTarget" class="game-item" draggable="true">5</div>
+                <span class="ms-2">← This is your target number!</span>
+            </div>
+
+            <div id="gameList" class="d-flex flex-wrap gap-2 justify-content-center mb-3">
+                <div class="game-item dropzone">7</div>
+                <div class="game-item dropzone">2</div>
+                <div class="game-item dropzone">9</div>
+                <div class="game-item dropzone">1</div>
+                <div class="game-item dropzone">5</div>
+            </div>
+
+            <button class="btn btn-success" onclick="checkLinearGame()">Check Result</button>
+            <p id="linearGameFeedback" class="mt-3 fw-bold"></p>
+
+            <script>
+                const target = document.getElementById("draggableTarget");
+                const zones = document.querySelectorAll(".dropzone");
+
+                target.addEventListener("dragstart", e => {
+                    e.dataTransfer.setData("text/plain", target.textContent);
+                });
+
+                zones.forEach(zone => {
+                    zone.addEventListener("dragover", e => e.preventDefault());
+
+                    zone.addEventListener("drop", e => {
+                        e.preventDefault();
+                        const draggedValue = e.dataTransfer.getData("text/plain");
+                        if (!zone.classList.contains("dropped")) {
+                            zone.classList.add("dropped");
+                            zone.textContent = draggedValue;
+                            target.setAttribute("draggable", "false");
+                            target.style.opacity = "0.6";
+                        }
+                    });
+                });
+
+                function checkLinearGame() {
+                    const values = Array.from(document.querySelectorAll(".dropzone")).map(el => el.textContent.trim());
+                    const found = values.includes("5");
+                    const feedback = document.getElementById("linearGameFeedback");
+
+                    feedback.textContent = found
+                        ? "🎉 Great! You found the target in the list!"
+                        : "❌ Oops! The target is not placed correctly. Try again.";
+                }
+            </script>
+
+            <style>
+                .game-item {
+                    width: 50px;
+                    height: 50px;
+                    background-color: #f8f9fa;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 2px solid #6c757d;
+                    border-radius: 8px;
+                    cursor: grab;
+                    font-weight: bold;
+                }
+
+                .game-item:hover {
+                    background-color: #e2e6ea;
+                }
+
+                .game-item:active {
+                    cursor: grabbing;
+                }
+
+                .dropzone.dropped {
+                    background-color: #c3e6cb;
+                    border-color: #28a745;
+                }
+
+                .hero-image {
+        width: 100%;
+        overflow: hidden;
+        margin-top: -8px;
+        text-align: center;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+        height: auto;
+        display: inline-block;
+    }
+
+    @media (min-width: 768px) {
+        .hero-image img {
+            max-height: 400px;
+        }
+    }
+            </style>
+        </div>
+    </div>
+</div>
+{% endblock %}

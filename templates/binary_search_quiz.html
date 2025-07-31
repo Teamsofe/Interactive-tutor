@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Binary Search Quiz{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🧠 Test Your Knowledge: Binary Search Quiz</h2>
+
+    <form method="POST" action="{{ url_for('binary_search_quiz') }}#quiz-result" class="p-4 bg-light rounded shadow-sm">
+        <div class="mb-4">
+            <h5>1. What is the time complexity of Binary Search?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" value="a" required>
+                <label class="form-check-label">O(n)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" value="b">
+                <label class="form-check-label">O(n²)</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" value="c">
+                <label class="form-check-label">O(log n)</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>2. What is the advantage of Binary Search?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question2" value="a" required>
+                <label class="form-check-label">It works on unsorted data</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question2" value="b">
+                <label class="form-check-label">It’s faster than Linear Search on large datasets</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question2" value="c">
+                <label class="form-check-label">It’s simpler than Linear Search</label>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>3. When is Binary Search ineffective?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question3" value="a" required>
+                <label class="form-check-label">When the data is sorted</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question3" value="b">
+                <label class="form-check-label">When the data is unsorted</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Quiz</button>
+    </form>
+
+    {% if score is not none %}
+    <div id="quiz-result" class="mt-5 p-4 bg-white rounded shadow-sm text-center animate-highlight">
+        <h3>Your Score: {{ score }} out of 3</h3>
+        {% if score == 3 %}
+            <p class="text-success">🌟 Excellent! You're a Binary Search whiz!</p>
+        {% elif score == 2 %}
+            <p class="text-info">👍 Good job! Just one more step to perfection.</p>
+        {% else %}
+            <p class="text-warning">📘 Keep practicing! Review the lesson and try again.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <a href="{{ url_for('binary_search') }}" class="btn btn-outline-secondary mt-3">
+        🔙 Back to Binary Search Lesson
+    </a>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .animate-highlight {
+        animation: fadeInHighlight 1s ease-in-out;
+    }
+
+    @keyframes fadeInHighlight {
+        from {
+            background-color: #fff3cd;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            background-color: #ffffff;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}

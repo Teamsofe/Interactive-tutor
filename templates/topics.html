@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}Algorithm Overview{% endblock %}
+
+{% block content %}
+<style>
+    .main {
+        display: flex;
+        flex-direction: row;
+        padding: 30px;
+    }
+    .content {
+        flex: 3;
+        padding-right: 20px;
+    }
+    .sidebar {
+        flex: 1;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        height: fit-content;
+    }
+    h1, h2 {
+        color: #333;
+    }
+    p {
+        line-height: 1.6;
+        font-size: 16px;
+        color: #444;
+    }
+    .video-container {
+        margin: 20px 0;
+    }
+    video {
+        width: 100%;
+        border-radius: 8px;
+    }
+    .topic-link {
+        display: block;
+        margin: 12px 0;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .topic-link:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="main">
+    <!-- Main Introduction Area -->
+    <div class="content">
+        <h1>👣 Let's Talk About Everyday Steps (Overview of Algorithm)</h1>
+        <p>
+            Have you ever followed a cooking recipe? Brushed your teeth in a certain order? Or maybe played a game where you had to follow certain moves step by step?
+            <strong>That's what an algorithm is!</strong> It's simply a set of instructions to complete a task.
+        </p>
+        <p>
+            Computers use algorithms to solve problems, just like we use steps to do things in real life. So, no worries — this isn't scary stuff.
+            We're just showing you the secret behind how computers think!
+        </p>
+
+        <h2>🎥 Quick Introduction to Algorithms</h2>
+        <div class="video-container">
+            <video controls>
+                <source src="{{ url_for('static', filename='videos/Algorithm_1.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <p>
+            In the video above, you'll learn what algorithms are with fun examples. Watch it at your pace — you can even come back to it later.
+        </p>
+
+        <a href="https://medium.com/karuna-sehgal/a-simplified-interpretation-of-algorithms-3da9748e6b71" class="d-block mb-3">See More Explanation on Algorithm</a>
+
+
+    </div>
+
+
+
+    <!-- Sidebar with Topics -->
+    <div class="sidebar">
+        <h2>📘 Explore Topics</h2>
+        <a href="{{ url_for('bubble_sort') }}" class="topic-link">Bubble Sort</a>
+        <a href="{{ url_for('insertion_sort') }}" class="topic-link">Insertion Sort</a>
+        <a href="{{ url_for('linear_search') }}" class="topic-link">Linear Search</a>
+        <a href="{{ url_for('binary_search') }}" class="topic-link">Binary Search</a>
+        <a href="{{url_for('recursion') }}" class="topic-link">Recursion (Factorial)</a>
+    </div>
+</div>
+{% endblock %}
